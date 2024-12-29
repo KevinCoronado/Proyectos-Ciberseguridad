@@ -1,4 +1,5 @@
-Projects in cibersecurity 
+## Projects in Cybersecurity
 
-WayBackMachine - This project do searches in the WayBackMachine to find information, this can be used in OSINT operations
-Dns_enumeration - We can have information about the DNS Record Types
+- **WayBackMachine**: This project performs searches in the WayBackMachine to find information. This can be used in OSINT operations.
+- **Dns_enumeration**: Provides information about the DNS Record Types.
+- **Ip_geolocalitation**: Give you the Geolocalitation of an Ip.
