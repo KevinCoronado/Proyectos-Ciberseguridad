@@ -1,0 +1,53 @@
+import phonenumbers 
+from phonenumbers import geocoder, carrier, timezone
+import folium
+from geopy.geocoders import Photon
+import argparse
+
+
+def obtener_info_telefono(numero_telefono):
+    """Obtener datos de geolocalizacion del numero de telefono"""
+    numero = phonenumbers.parse(numero_telefono)
+    
+    #Obtener la zona horaria:
+    
+    zona_horaia = timezone.time_zones_for_number(numero)
+    
+    #Obtener el pais
+    
+    pais = geocoder.description_for_number(numero, "es")
+    
+    #Obtener el operador asociado con el numero
+    
+    operador = carrier.name_for_number(numero, "es")
+    
+    info = {
+        "Numero": phonenumbers.format_number(numero, phonenumbers.PhoneNumberFormat.INTERNATIONAL),
+        "Pais": pais,
+        "Operador": operador,
+        "Zona horaria": zona_horaia
+    }
+    
+    return info
+
+def pintar_mapa(localizacion, filename="mapa.html"):
+    """Construye un mapa con la localizacion y un numero de telefono"""
+    geolocator = Photon(user_agent="geoapiExercise")
+    location = geolocator.geocode(localizacion)
+    mapa = folium.Map(location=[location.latitude, location.longitude], zoom_start=10)
+    folium.Marker([location.latitude, location.longitude],popup=localizacion).add_to(mapa)
+    
+    #Guardar mapa como html
+    
+    mapa.save(filename)
+    print(f"Mapa guardado en : {filename}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Herramienta para detectar la localizacion de un numero telefonico")
+    parser.add_argument("-n","--number",type=str,required=True,help="Numero target, example = -n '+520990990865'")
+    args = parser.parse_args()
+    
+    info = obtener_info_telefono(args.number)
+    print(info)  
+    
+    pintar_mapa(info["Pais"])  
