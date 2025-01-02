@@ -4,4 +4,4 @@
 - **Dns_enumeration**: Provides information about the DNS Record Types.
 - **Ip_geolocation**: Give you the Geolocation of an Ip.
 - **Phone Geolocation**: Give you the Geolocation of a phone number.
-- - **Metadata Analyzer**: Extract the metadata of documents and photos.
+- **Metadata Analyzer**: Extract the metadata of documents and photos.
